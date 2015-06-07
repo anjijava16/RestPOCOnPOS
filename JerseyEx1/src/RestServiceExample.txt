@@ -4,6 +4,11 @@ Open Source Best Rest Web Service URL: https://apigee.com/console
 Example http://localhost:2626/JerseyEx1/rest/hello/anji
 
 
+
+Resource : Data/response from getting server
+REST guidelines always talks about stateless communication between client and the Server.
+Stateless means, every single request from client to server will be considered as a fresh request.
+ Because of this reason REST always prefers to choose HTTP as it a stateless protocol.
 @Path("/hello")
 public class HelloWorldService{
 

@@ -1,0 +1,103 @@
+Main application URL: http://localhost:2020/JerseyEx1/
+Web.xml URL Pattern :/rest
+@Path to CustomerService : /customers
+Total URL should be :: http://localhost:2020/JerseyEx1/rest/customers
+
+######################################################################################################
+With OUT using Path annotations at Method level::   http://localhost:2020/JerseyEx1/rest/customers
+MethodLevel For NRI Customer URL  :http://localhost:2020/JerseyEx1/rest/customers/nri
+MethodLevel  For LOCAL Customer URL  :http://localhost:2020/JerseyEx1/rest/customers/local
+
+#############################################################################################################
+
+@PathParam Ex:
+URL : http://localhost:2020/JerseyEx1/rest/localCust/Java4s/USA
+
+In method Level
+@GET
+@Path("{anji}/{hyderabad}")
+@Produces("text/html")
+public Response getCustomerInfo(@PathParam("name")String name,@PathParam("country")String country){
+		String output="Name is :"+name+ ";country="+country;
+		return Response.status(200).entity(output).build();
+	}
+#######################################################################
+@QueryParam 
+
+http://localhost:2020/JerseyEx1/rest/queryParam?nameKey=java4s&countryKey=USA
+
+In method Level
+@GET
+@Produces("text/html")
+public Response getQueryParam(@QueryParam("nameKey")String name,@QueryParam("countryKey")String country){
+
+}
+#########################################################################################
+@MatrixParam (; Separated)
+http://localhost:2020/JerseyEx1/rest/matrixService;nameKey=Java4s;countryKey=USA
+@GET
+	@Produces("text/html")
+	public Response getMatrixResponse(@MatrixParam("nameKey")String name, @MatrixParam("countryKey")String country) {
+		String custInfo="Name key="+name+"country="+country;
+		return Response.status(200).entity(custInfo).build();
+
+	}
+
+##################################################################################################################33
+<form
+		action="/JerseyEx1/rest/addCustomersService/addCustomer"
+		method="post">
+@Path("addCustomersService")	 //Class Level	
+@Produces("text/html")
+public Response addCustoemrService(@FormParam("nameKey")String name,@FormParam("countryKey")String country){
+	String output = "<font face='verdana' size='2'>" +
+            "Web Service has added your Customer information with Name - <u>"+name+"</u>, Country - <u>"+country+"</u></font>";
+	return Response.status(200).entity(output).build();
+
+#######################################################################################################################################
+
+List values returns
+
+http://localhost:2020/JerseyEx1/rest/customersServiceRes/testList
+@GET
+	@Path("testList")
+	@XmlElement(name = "customer")
+	public List<Customer> getCustomers() {
+		List<Customer> customers = new ArrayList<Customer>();
+		customers.addAll(customerMap.values());
+		return customers;
+	}
+
+Output :
+  <?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+- <customers>
+- <customer>
+  <address>Sheffield, UK</address> 
+  <id>0</id> 
+  <name>Harold Abernathy</name> 
+  </customer>
+  </customers>
+#############################################################################################################################################	
+
+JSON URL
+
+http://localhost:2020/JerseyEx1/rest/customersServiceRes/1
+	@GET
+	@Path("/{id}")
+	@Produces("application/json")
+	public String getCustomer(@PathParam("id") int cId) {
+		Customer customer = customerMap.get(cId);
+		return "{\"name\": \" " + customer.getName() + " \", \"address\": \""
+				+ customer.getAddress() + "\"}";
+	}
+
+Output ::
+{"name": " KL ", "address": "MY"}
+
+##################################################################################################################################################
+
+
+
+
+
+
